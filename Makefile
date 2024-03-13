@@ -32,6 +32,7 @@ swap-router-contracts:
 openzeppelin-contracts:
 	cd openzeppelin-contracts && npm install && cd ..
 
+verify: verify-v3-factory verify-v3-periphery verify-swap-router verify-universal-router-permit verify-openzeppelin
 
 network ?= thanossepolia
 verify-v3-factory:
