@@ -1,24 +1,24 @@
 [submodule "v3-core"]
 	path = v3-core
-	url = https://github.com/Uniswap/v3-core
+	url = https://github.com/tokamak-network/tokamak-uniswap-v3-core/tree/deploy-tokamak-layer
 	branch = main
 [submodule "v3-periphery"]
 	path = v3-periphery
-	url = https://github.com/Uniswap/v3-periphery
+	url = https://github.com/tokamak-network/tokamak-uniswap-v3-periphery
 	branch = main
 [submodule "swap-router-contracts"]
 	path = swap-router-contracts
-	url = https://github.com/Uniswap/swap-router-contracts
+	url = https://github.com/tokamak-network/tokamak-swap-router-contracts.git
 	branch = main
 [submodule "openzeppelin-contracts"]
 	path = openzeppelin-contracts
-	url = https://github.com/OpenZeppelin/openzeppelin-contracts/
-	branch = release-v3.4-solc-0.7
+	url = https://github.com/tokamak-network/openzeppelin-contracts.git
+	branch = verify-release-v3.4-solc-0.7
 [submodule "permit2"]
 	path = permit2
 	url = https://github.com/Uniswap/permit2
 	branch = main
 [submodule "universal-router"]
 	path = universal-router
-	url = https://github.com/Uniswap/universal-router/
+	url = https://github.com/tokamak-network/Tokamak-Universal-Router.git
 	branch = main
