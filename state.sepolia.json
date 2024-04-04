@@ -1,0 +1,13 @@
+{
+  "standardBridgeProxy": "0x1F032B938125f9bE411801fb127785430E7b3971",
+  "usdcBridgeProxy": "0x62FCed95F61e11747dB071510bCfCa845d8b405d",
+  "tonAddress": "0xa30fe40285b8f5c0457dbc3b7c8a280373c40044",
+  "wtonAddress": "0x79e0d92670106c85e9067b56b8f674340dca0bbd",
+  "tosAddress": "0xff3ef745d9878afe5934ff0b130868afddbc58e8",
+  "usdcAddress": "0x693a591A27750eED2A0e14BC73bB1F313116a1cb",
+  "usdtAddress": "0x42d3b260c761cD5da022dB56Fe2F89c4A909b04A",
+  "wethAddress": "0xfFf9976782d46CC05630D1f6eBAb18b2324d6B14",
+  "lydaAddress": "0x3d752de8ec40b655f21d11b02fa7438ae18687fc",
+  "docAddress": "0x8c4c0fc89382f96e435527d39c9ec69dded34e77",
+  "auraAddress": "0xf8474c2a90b9035e0b431e1789fe76f54d4ce708"
+}
