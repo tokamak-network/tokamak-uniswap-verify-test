@@ -11,9 +11,19 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+-include .env
+
+help:
+	@echo "Usage:"
+	@echo "  make deploy [ARGS=...]\n    example: make deploy ARGS=\"--network sepolia\""
+	@echo ""
+	@echo "  make fund [ARGS=...]\n    example: make deploy ARGS=\"--network sepolia\""
+
 .PHONY: all v3-core v3-periphery universal-router swap-router-contracts openzeppelin-contracts
 # Define install-dependencies target
 install-dependencies: v3-core v3-periphery universal-router swap-router-contracts openzeppelin-contracts
+
+### Submodule targets
 
 # Define targets for each submodule
 v3-core:
@@ -49,3 +59,20 @@ verify-universal-router-permit:
 
 verify-openzeppelin:
 	cd openzeppelin-contracts && npx hardhat run scripts/verify.js --network ${network} --no-compile && cd ..
+verify-pools:
+	cd v3-core && npx hardhat run scripts/verifyPools.ts --network ${network} && cd ..
+
+### Foundry targets
+DEFAULT_ANVIL_KEY := 0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80
+NETWORK_ARGS := --rpc-url http://localhost:8545 --private-key $(DEFAULT_ANVIL_KEY)
+
+ifeq ($(findstring --network sepolia,$(ARGS)),--network sepolia)
+	NETWORK_ARGS := --rpc-url $(SEPOLIA_RPC_URL) --private-key $(PRIVATE_KEY)
+endif
+ifeq ($(findstring --network thanossepolia,$(ARGS)),--network sepolia)
+	NETWORK_ARGS := --rpc-url $(THANOSSEPOLIA_RPC_URL) --private-key $(PRIVATE_KEY)
+endif
+
+
+approve-l1-bridge:
+	forge script script/Deposit.s.sol:Approve $(NETWORK_ARGS)
