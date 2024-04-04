@@ -1,6 +1,10 @@
 [profile.default]
 src = "src"
 out = "out"
+via_ir = true
 libs = ["lib"]
-
+fs_permissions = [{ access = "read-write", path = "./"}] # default: all file cheat codes are disabled
+remappings = [
+    '@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/',
+]
 # See more config options https://github.com/foundry-rs/foundry/blob/master/crates/config/README.md#all-options
