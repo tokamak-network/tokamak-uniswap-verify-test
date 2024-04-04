@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@tokamak-network/deploy-v3": "^1.0.4"
+  }
+}
