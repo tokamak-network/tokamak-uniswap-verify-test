@@ -24,7 +24,7 @@ v3-periphery:
 
 universal-router: NODE_VERSION=16
 universal-router:
-	cd universal-router && source ~/.nvm/nvm.sh && nvm use $(NODE_VERSION) && yarn && nvm use default && cd ..
+	cd universal-router && source ~/.nvm/nvm.sh && nvm use $(NODE_VERSION) && yarn && forge install && nvm use default && cd ..
 
 swap-router-contracts:
 	cd swap-router-contracts && yarn && cd ..
