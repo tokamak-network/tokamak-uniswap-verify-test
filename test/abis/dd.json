@@ -1,0 +1,204 @@
+[
+    Log {
+      provider: HardhatEthersProvider {
+        _hardhatProvider: [LazyInitializationProviderAdapter],
+        _networkName: 'localhost',
+        _blockListeners: [],
+        _transactionHashListeners: Map(0) {},
+        _eventListeners: []
+      },
+      transactionHash: '0x8a5e6e52234fef5c6490361a222a17491587e56aff1244789ceaab81139cb7e3',
+      blockHash: '0xe7275cb8b9dc8945993f8a290cbee1670c1845e8af9bc848db0e4728d097bfc9',
+      blockNumber: 2810,
+      removed: undefined,
+      address: '0xcCD11Ebe55c84f0b793A291b209f80AA15a1CFfC',
+      data: '0x0000000000000000000000000000000000000000000000057e98903375abf7be000000000000000000000000000000000000000000000002861e3d4642f152f6000000000000000000000000000000000000000000000000b08ac07c2aec5a07',
+      topics: [
+        '0x0c396cd989a39f4459b5fa1aed6a9a8dcdbc45908acfd67e028cd568da98982c',
+        '0x000000000000000000000000fafc55bcdc6e7a74c21dd51531d14e5dd9f29613',
+        '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff2e0',
+        '0x0000000000000000000000000000000000000000000000000000000000002bd4'
+      ],
+      index: 0,
+      transactionIndex: 0
+    },
+    EventLog {
+      provider: HardhatEthersProvider {
+        _hardhatProvider: [LazyInitializationProviderAdapter],
+        _networkName: 'localhost',
+        _blockListeners: [],
+        _transactionHashListeners: Map(0) {},
+        _eventListeners: []
+      },
+      transactionHash: '0x8a5e6e52234fef5c6490361a222a17491587e56aff1244789ceaab81139cb7e3',
+      blockHash: '0xe7275cb8b9dc8945993f8a290cbee1670c1845e8af9bc848db0e4728d097bfc9',
+      blockNumber: 2810,
+      removed: undefined,
+      address: '0xfAFc55Bcdc6e7a74C21DD51531D14e5DD9f29613',
+      data: '0x0000000000000000000000000000000000000000000000057e98903375abf7be000000000000000000000000000000000000000000000002861e3d4642f152f6000000000000000000000000000000000000000000000000b08ac07c2aec5a07',
+      topics: [
+        '0x26f6a048ee9138f2c0ce266f322cb99228e8d619ae2bff30c67f8dcf9d2377b4',
+        '0x0000000000000000000000000000000000000000000000000000000000000001'
+      ],
+      index: 1,
+      transactionIndex: 0,
+      interface: Interface {
+        fragments: [Array],
+        deploy: [ConstructorFragment],
+        fallback: null,
+        receive: true
+      },
+      fragment: EventFragment {
+        type: 'event',
+        inputs: [Array],
+        name: 'DecreaseLiquidity',
+        anonymous: false
+      },
+      args: Result(4) [
+        1n,
+        101355919964478633918n,
+        46557717369782883062n,
+        12721191736989997575n
+      ]
+    },
+    UndecodedEventLog {
+      provider: HardhatEthersProvider {
+        _hardhatProvider: [LazyInitializationProviderAdapter],
+        _networkName: 'localhost',
+        _blockListeners: [],
+        _transactionHashListeners: Map(0) {},
+        _eventListeners: []
+      },
+      transactionHash: '0x8a5e6e52234fef5c6490361a222a17491587e56aff1244789ceaab81139cb7e3',
+      blockHash: '0xe7275cb8b9dc8945993f8a290cbee1670c1845e8af9bc848db0e4728d097bfc9',
+      blockNumber: 2810,
+      removed: undefined,
+      address: '0x7c6b91D9Be155A6Db01f749217d76fF02A7227F2',
+      data: '0x00000000000000000000000000000000000000000000000287f63df409971d0f',
+      topics: [
+        '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef',
+        '0x000000000000000000000000ccd11ebe55c84f0b793a291b209f80aa15a1cffc',
+        '0x0000000000000000000000002d45af0a92a0ac16ed063956d965295a6457461f'
+      ],
+      index: 2,
+      transactionIndex: 0,
+      error: RangeError: data out-of-bounds (buffer=0x000000000000000000000000ccd11ebe55c84f0b793a291b209f80aa15a1cffc0000000000000000000000002d45af0a92a0ac16ed063956d965295a6457461f, length=64, offset=96, code=BUFFER_OVERRUN, version=6.11.1)
+          at makeError (/Users/justin/Documents/GitHub/hardhat-ethers-test/node_modules/ethers/src.ts/utils/errors.ts:691:21)
+          at assert (/Users/justin/Documents/GitHub/hardhat-ethers-test/node_modules/ethers/src.ts/utils/errors.ts:715:25)
+          at Reader.#peekBytes (/Users/justin/Documents/GitHub/hardhat-ethers-test/node_modules/ethers/src.ts/abi/coders/abstract-coder.ts:458:23)
+          at Reader.readBytes (/Users/justin/Documents/GitHub/hardhat-ethers-test/node_modules/ethers/src.ts/abi/coders/abstract-coder.ts:477:36)
+          at Reader.readValue (/Users/justin/Documents/GitHub/hardhat-ethers-test/node_modules/ethers/src.ts/abi/coders/abstract-coder.ts:486:30)
+          at NumberCoder.decode (/Users/justin/Documents/GitHub/hardhat-ethers-test/node_modules/ethers/src.ts/abi/coders/number.ts:54:33)
+          at /Users/justin/Documents/GitHub/hardhat-ethers-test/node_modules/ethers/src.ts/abi/coders/array.ts:108:31
+          at Array.forEach (<anonymous>)
+          at unpack (/Users/justin/Documents/GitHub/hardhat-ethers-test/node_modules/ethers/src.ts/abi/coders/array.ts:86:12)
+          at TupleCoder.decode (/Users/justin/Documents/GitHub/hardhat-ethers-test/node_modules/ethers/src.ts/abi/coders/tuple.ts:66:22) {
+        code: 'BUFFER_OVERRUN',
+        buffer: [Uint8Array],
+        length: 64,
+        offset: 96,
+        shortMessage: 'data out-of-bounds'
+      }
+    },
+    UndecodedEventLog {
+      provider: HardhatEthersProvider {
+        _hardhatProvider: [LazyInitializationProviderAdapter],
+        _networkName: 'localhost',
+        _blockListeners: [],
+        _transactionHashListeners: Map(0) {},
+        _eventListeners: []
+      },
+      transactionHash: '0x8a5e6e52234fef5c6490361a222a17491587e56aff1244789ceaab81139cb7e3',
+      blockHash: '0xe7275cb8b9dc8945993f8a290cbee1670c1845e8af9bc848db0e4728d097bfc9',
+      blockNumber: 2810,
+      removed: undefined,
+      address: '0xD08a2917653d4E460893203471f0000826fb4034',
+      data: '0x000000000000000000000000000000000000000000000000b22280c6595e02af',
+      topics: [
+        '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef',
+        '0x000000000000000000000000ccd11ebe55c84f0b793a291b209f80aa15a1cffc',
+        '0x0000000000000000000000002d45af0a92a0ac16ed063956d965295a6457461f'
+      ],
+      index: 3,
+      transactionIndex: 0,
+      error: RangeError: data out-of-bounds (buffer=0x000000000000000000000000ccd11ebe55c84f0b793a291b209f80aa15a1cffc0000000000000000000000002d45af0a92a0ac16ed063956d965295a6457461f, length=64, offset=96, code=BUFFER_OVERRUN, version=6.11.1)
+          at makeError (/Users/justin/Documents/GitHub/hardhat-ethers-test/node_modules/ethers/src.ts/utils/errors.ts:691:21)
+          at assert (/Users/justin/Documents/GitHub/hardhat-ethers-test/node_modules/ethers/src.ts/utils/errors.ts:715:25)
+          at Reader.#peekBytes (/Users/justin/Documents/GitHub/hardhat-ethers-test/node_modules/ethers/src.ts/abi/coders/abstract-coder.ts:458:23)
+          at Reader.readBytes (/Users/justin/Documents/GitHub/hardhat-ethers-test/node_modules/ethers/src.ts/abi/coders/abstract-coder.ts:477:36)
+          at Reader.readValue (/Users/justin/Documents/GitHub/hardhat-ethers-test/node_modules/ethers/src.ts/abi/coders/abstract-coder.ts:486:30)
+          at NumberCoder.decode (/Users/justin/Documents/GitHub/hardhat-ethers-test/node_modules/ethers/src.ts/abi/coders/number.ts:54:33)
+          at /Users/justin/Documents/GitHub/hardhat-ethers-test/node_modules/ethers/src.ts/abi/coders/array.ts:108:31
+          at Array.forEach (<anonymous>)
+          at unpack (/Users/justin/Documents/GitHub/hardhat-ethers-test/node_modules/ethers/src.ts/abi/coders/array.ts:86:12)
+          at TupleCoder.decode (/Users/justin/Documents/GitHub/hardhat-ethers-test/node_modules/ethers/src.ts/abi/coders/tuple.ts:66:22) {
+        code: 'BUFFER_OVERRUN',
+        buffer: [Uint8Array],
+        length: 64,
+        offset: 96,
+        shortMessage: 'data out-of-bounds'
+      }
+    },
+    Log {
+      provider: HardhatEthersProvider {
+        _hardhatProvider: [LazyInitializationProviderAdapter],
+        _networkName: 'localhost',
+        _blockListeners: [],
+        _transactionHashListeners: Map(0) {},
+        _eventListeners: []
+      },
+      transactionHash: '0x8a5e6e52234fef5c6490361a222a17491587e56aff1244789ceaab81139cb7e3',
+      blockHash: '0xe7275cb8b9dc8945993f8a290cbee1670c1845e8af9bc848db0e4728d097bfc9',
+      blockNumber: 2810,
+      removed: undefined,
+      address: '0xcCD11Ebe55c84f0b793A291b209f80AA15a1CFfC',
+      data: '0x0000000000000000000000002d45af0a92a0ac16ed063956d965295a6457461f00000000000000000000000000000000000000000000000287f63df409971d0f000000000000000000000000000000000000000000000000b22280c6595e02af',
+      topics: [
+        '0x70935338e69775456a85ddef226c395fb668b63fa0115f5f20610b388e6ca9c0',
+        '0x000000000000000000000000fafc55bcdc6e7a74c21dd51531d14e5dd9f29613',
+        '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff2e0',
+        '0x0000000000000000000000000000000000000000000000000000000000002bd4'
+      ],
+      index: 4,
+      transactionIndex: 0
+    },
+    EventLog {
+      provider: HardhatEthersProvider {
+        _hardhatProvider: [LazyInitializationProviderAdapter],
+        _networkName: 'localhost',
+        _blockListeners: [],
+        _transactionHashListeners: Map(0) {},
+        _eventListeners: []
+      },
+      transactionHash: '0x8a5e6e52234fef5c6490361a222a17491587e56aff1244789ceaab81139cb7e3',
+      blockHash: '0xe7275cb8b9dc8945993f8a290cbee1670c1845e8af9bc848db0e4728d097bfc9',
+      blockNumber: 2810,
+      removed: undefined,
+      address: '0xfAFc55Bcdc6e7a74C21DD51531D14e5DD9f29613',
+      data: '0x0000000000000000000000002d45af0a92a0ac16ed063956d965295a6457461f00000000000000000000000000000000000000000000000287f63df409971d0f000000000000000000000000000000000000000000000000b22280c6595e02af',
+      topics: [
+        '0x40d0efd1a53d60ecbf40971b9daf7dc90178c3aadc7aab1765632738fa8b8f01',
+        '0x0000000000000000000000000000000000000000000000000000000000000001'
+      ],
+      index: 5,
+      transactionIndex: 0,
+      interface: Interface {
+        fragments: [Array],
+        deploy: [ConstructorFragment],
+        fallback: null,
+        receive: true
+      },
+      fragment: EventFragment {
+        type: 'event',
+        inputs: [Array],
+        name: 'Collect',
+        anonymous: false
+      },
+      args: Result(4) [
+        1n,
+        '0x2d45Af0a92a0AC16eD063956d965295a6457461f',
+        46690574305152408847n,
+        12835963477350548143n
+      ]
+    }
+  ]
