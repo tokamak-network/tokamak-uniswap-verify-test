@@ -11,38 +11,62 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+import { SignerWithAddress } from "@nomicfoundation/hardhat-ethers/signers";
 import { expect } from "chai";
 import { Contract } from "ethers";
 import hre, { ethers } from "hardhat";
 import NonfungiblePositionManagerABI from "./abis/NonfungiblePositionManager.json";
 import UniswapV3FactoryABI from "./abis/UniswapV3Factory.json";
 import UniswapV3PoolABI from "./abis/UniswapV3Pool.json";
-import { getCreate2Address, UniswapV3PoolBytecode } from "./Utils/utils";
+import { getCreate2Address, UniswapV3PoolBytecode } from "./utils/utils";
 
 describe("UniswapV3Factory test", () => {
   const UniswapV3FactoryAddress = "0x4200000000000000000000000000000000000504";
   const ethAddress = "0x4200000000000000000000000000000000000486";
   const wNativeTokenAddress = "0x4200000000000000000000000000000000000006";
   const ownerAddress = "0xa0Ee7A142d267C1f36714E4a8F75612F20a79720";
+  const helpers = require("@nomicfoundation/hardhat-toolbox/network-helpers");
   const NonfungiblePositionManagerAddress =
     "0x4200000000000000000000000000000000000506";
-  let signer;
+  let signer: SignerWithAddress;
+  let ownerSigner: SignerWithAddress;
   let uniswapV3Factory: Contract;
   let nonFungiblePositionManager: Contract;
-  it("setUp", async () => {
+  let ownerFactory: Contract;
+  beforeEach("fork devnetL2", async () => {
+    await hre.network.provider.request({
+      method: "hardhat_reset",
+      params: [
+        {
+          forking: {
+            jsonRpcUrl: "http://localhost:9545",
+            blockNumber: 0,
+          },
+        },
+      ],
+    });
+    await hre.network.provider.request({
+      method: "hardhat_impersonateAccount",
+      params: [ownerAddress],
+    });
+    // send eth to owner
+    await hre.network.provider.send("hardhat_setBalance", [
+      ownerAddress,
+      "0x100000000000000000000000000000000000",
+    ]);
     signer = (await ethers.getSigners())[0];
     uniswapV3Factory = await ethers.getContractAt(
       UniswapV3FactoryABI,
       UniswapV3FactoryAddress,
       signer
     );
-    const provider = new ethers.JsonRpcProvider("http://localhost:9545");
-    console.log(await provider.getBalance(ownerAddress));
     nonFungiblePositionManager = await ethers.getContractAt(
       NonfungiblePositionManagerABI,
       NonfungiblePositionManagerAddress,
       signer
     );
+    ownerSigner = await ethers.getSigner(ownerAddress);
+    ownerFactory = uniswapV3Factory.connect(ownerSigner) as Contract;
   });
   it("get factory address", async () => {
     const factoryAddress = await nonFungiblePositionManager.factory();
@@ -85,7 +109,7 @@ describe("UniswapV3Factory test", () => {
         token0,
         token1,
         fee,
-        600,
+        42951287400,
         { gasLimit: 20000000 }
       );
 
@@ -137,34 +161,76 @@ describe("UniswapV3Factory test", () => {
         .be.reverted;
     });
     it("fails if token a is 0 or token b is 0", async () => {
-      await expect(uniswapV3Factory.createPool(ethAddress, "0x", 100)).to.be
-        .reverted;
-      await expect(uniswapV3Factory.createPool("0x", ethAddress, 100)).to.be
-        .reverted;
-      await expect(uniswapV3Factory.createPool("0x", "0x", 100)).to.be.reverted;
+      await expect(
+        uniswapV3Factory.createPool(ethAddress, ethers.ZeroAddress, 100)
+      ).to.be.reverted;
+      await expect(
+        uniswapV3Factory.createPool(ethers.ZeroAddress, ethAddress, 100)
+      ).to.be.reverted;
+      await expect(
+        uniswapV3Factory.createPool(ethers.ZeroAddress, ethers.ZeroAddress, 100)
+      ).to.be.reverted;
     });
     it("fails if fee amount is not enabled", async () => {
       await expect(
         uniswapV3Factory.createPool(ethAddress, wNativeTokenAddress, 250)
       ).to.be.reverted;
     });
-    it("impersonate owner and send tx", async () => {
-      await hre.network.provider.request({
-        method: "hardhat_impersonateAccount",
-        params: [ownerAddress],
+    describe("#setOwner", () => {
+      it("fails if caller is not owner", async () => {
+        await expect(
+          (ownerFactory.connect(signer) as Contract).setOwner(signer.address)
+        ).to.be.reverted;
       });
-      // send eth to owner
-      await hre.network.provider.send("hardhat_setBalance", [
-        ownerAddress,
-        "0x100000000000000000000000000000000000",
-      ]);
-      const ownerSigner = await ethers.getSigner(ownerAddress);
-      const ownerFactory: Contract = uniswapV3Factory.connect(
-        ownerSigner
-      ) as Contract;
-      const tx = await ownerFactory.enableFeeAmount(100, 1);
-      const receipt = await tx.wait();
-      console.log(receipt);
+
+      it("updates owner", async () => {
+        await ownerFactory.setOwner(signer.address);
+        expect(await ownerFactory.owner()).to.eq(signer.address);
+      });
+
+      it("emits event", async () => {
+        await expect(ownerFactory.setOwner(signer.address))
+          .to.emit(ownerFactory, "OwnerChanged")
+          .withArgs(ownerAddress, signer.address);
+      });
+
+      it("cannot be called by original owner", async () => {
+        await ownerFactory.setOwner(signer.address);
+        await expect(ownerFactory.setOwner(ownerAddress)).to.be.reverted;
+      });
+    });
+    describe("#enableFeeAmount", () => {
+      it("fails if caller is not owner", async () => {
+        await expect(
+          (ownerFactory.connect(signer) as Contract).enableFeeAmount(100, 2)
+        ).to.be.reverted;
+      });
+      it("fails if fee is too great", async () => {
+        await expect(ownerFactory.enableFeeAmount(1000000, 10)).to.be.reverted;
+      });
+      it("fails if tick spacing is too small", async () => {
+        await expect(ownerFactory.enableFeeAmount(500, 0)).to.be.reverted;
+      });
+      it("fails if tick spacing is too large", async () => {
+        await expect(ownerFactory.enableFeeAmount(500, 16834)).to.be.reverted;
+      });
+      it("fails if already initialized", async () => {
+        await ownerFactory.enableFeeAmount(350, 5);
+        await expect(ownerFactory.enableFeeAmount(350, 10)).to.be.reverted;
+      });
+      it("sets the fee amount in the mapping", async () => {
+        await ownerFactory.enableFeeAmount(350, 5);
+        expect(await ownerFactory.feeAmountTickSpacing(350)).to.eq(5);
+      });
+      it("emits an event", async () => {
+        await expect(ownerFactory.enableFeeAmount(350, 25))
+          .to.emit(ownerFactory, "FeeAmountEnabled")
+          .withArgs(350, 25);
+      });
+      it("enables pool creation", async () => {
+        await ownerFactory.enableFeeAmount(250, 15);
+        await createAndCheckPool(ethAddress, wNativeTokenAddress, 250);
+      });
     });
   });
 });
