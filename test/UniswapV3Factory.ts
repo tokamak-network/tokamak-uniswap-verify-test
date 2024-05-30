@@ -21,13 +21,13 @@ import UniswapV3PoolABI from "./abis/UniswapV3Pool.json";
 import { getCreate2Address, UniswapV3PoolBytecode } from "./utils/utils";
 
 describe("UniswapV3Factory test", () => {
-  const UniswapV3FactoryAddress = "0x4200000000000000000000000000000000000504";
+  const UniswapV3FactoryAddress = "0x4200000000000000000000000000000000000502";
   const ethAddress = "0x4200000000000000000000000000000000000486";
   const wNativeTokenAddress = "0x4200000000000000000000000000000000000006";
   const ownerAddress = "0xa0Ee7A142d267C1f36714E4a8F75612F20a79720";
   const helpers = require("@nomicfoundation/hardhat-toolbox/network-helpers");
   const NonfungiblePositionManagerAddress =
-    "0x4200000000000000000000000000000000000506";
+    "0x4200000000000000000000000000000000000504";
   let signer: SignerWithAddress;
   let ownerSigner: SignerWithAddress;
   let uniswapV3Factory: Contract;
@@ -40,7 +40,7 @@ describe("UniswapV3Factory test", () => {
         {
           forking: {
             jsonRpcUrl: "http://localhost:9545",
-            blockNumber: 0,
+            blockNumber: 30,
           },
         },
       ],
@@ -60,18 +60,13 @@ describe("UniswapV3Factory test", () => {
       UniswapV3FactoryAddress,
       signer
     );
+    ownerSigner = await ethers.getSigner(ownerAddress);
+    ownerFactory = uniswapV3Factory.connect(ownerSigner) as Contract;
     nonFungiblePositionManager = await ethers.getContractAt(
       NonfungiblePositionManagerABI,
       NonfungiblePositionManagerAddress,
       signer
     );
-    ownerSigner = await ethers.getSigner(ownerAddress);
-    ownerFactory = uniswapV3Factory.connect(ownerSigner) as Contract;
-  });
-  it("get factory address", async () => {
-    const factoryAddress = await nonFungiblePositionManager.factory();
-    console.log(factoryAddress, UniswapV3FactoryAddress);
-    expect(factoryAddress).to.equal(UniswapV3FactoryAddress);
   });
   it("test fee tick spacing values", async () => {
     const tickSpacing1 = await uniswapV3Factory.feeAmountTickSpacing(100);
@@ -83,6 +78,11 @@ describe("UniswapV3Factory test", () => {
     expect(tickSpacing10).to.equal(10);
     expect(tickSpacing60).to.equal(60);
     expect(tickSpacing200).to.equal(200);
+  });
+  it("get factory address", async () => {
+    const factoryAddress = await nonFungiblePositionManager.factory();
+    console.log("addresses: ", factoryAddress, UniswapV3FactoryAddress);
+    expect(factoryAddress).to.equal(UniswapV3FactoryAddress);
   });
   it("test owner adderess", async () => {
     const owner = await uniswapV3Factory.owner();

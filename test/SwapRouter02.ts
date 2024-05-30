@@ -29,9 +29,9 @@ import {
 import { encodePriceSqrt } from "./utils/encodePriceSqrt";
 import { encodePath } from "./utils/path";
 import { getMaxTick, getMinTick } from "./utils/ticks";
-describe("UniswapV3Factory test", () => {
-  const UniswapV3FactoryAddress = "0x4200000000000000000000000000000000000504";
-  const SwapRouter02Address = "0x4200000000000000000000000000000000000503";
+describe("UniswapV3SwapRouter02 test", () => {
+  const UniswapV3FactoryAddress = "0x4200000000000000000000000000000000000502";
+  const SwapRouter02Address = "0x4200000000000000000000000000000000000501";
   const UniswapInterfaceMulticallAddress =
     "0x4200000000000000000000000000000000000509";
   const ethAddress = "0x4200000000000000000000000000000000000486";
@@ -39,7 +39,7 @@ describe("UniswapV3Factory test", () => {
   const ownerAddress = "0xa0Ee7A142d267C1f36714E4a8F75612F20a79720";
   const helpers = require("@nomicfoundation/hardhat-toolbox/network-helpers");
   const NonfungiblePositionManagerAddress =
-    "0x4200000000000000000000000000000000000506";
+    "0x4200000000000000000000000000000000000504";
   let signer: SignerWithAddress;
   let ownerSigner: SignerWithAddress;
   let factory: Contract;
@@ -55,7 +55,7 @@ describe("UniswapV3Factory test", () => {
         {
           forking: {
             jsonRpcUrl: "http://localhost:9545",
-            blockNumber: 0,
+            blockNumber: 30,
           },
         },
       ],
