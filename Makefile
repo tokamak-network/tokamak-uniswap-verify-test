@@ -34,18 +34,29 @@ openzeppelin-contracts:
 
 verify: verify-v3-factory verify-v3-periphery verify-swap-router verify-universal-router-permit verify-openzeppelin
 
-network ?= thanossepolia
+NETWORKS := thanossepolia thanossepolianightly
+
 verify-v3-factory:
-	cd v3-core && npx hardhat run scripts/verifyCoreContracts.ts --network ${network} && cd ..
+	for network in $(NETWORKS); do \
+		cd v3-core && npx hardhat run scripts/verifyCoreContracts.ts --network $$network && cd ..; \
+	done
 
 verify-v3-periphery:
-	cd v3-periphery && npx hardhat run scripts/verify.ts --network ${network} && cd ..
+	for network in $(NETWORKS); do \
+		cd v3-periphery && npx hardhat run scripts/verify.ts --network $$network && cd ..; \
+	done
 
 verify-swap-router:
-	cd swap-router-contracts && npx hardhat run scripts/verify.ts --network ${network} && cd ..
+	for network in $(NETWORKS); do \
+		cd swap-router-contracts && npx hardhat run scripts/verify.ts --network $$network && cd ..; \
+	done
 
-verify-universal-router-permit:
-	cd universal-router && npx hardhat run scripts/verify.ts --network ${network} && cd ..
+verify-universal-router:
+	for network in $(NETWORKS); do \
+		cd universal-router && npx hardhat run scripts/verify.ts --network $$network && cd ..; \
+	done
 
 verify-openzeppelin:
-	cd openzeppelin-contracts && npx hardhat run scripts/verify.js --network ${network} --no-compile && cd ..
+	for network in $(NETWORKS); do \
+		cd openzeppelin-contracts && npx hardhat run scripts/verify.js --network $$network --no-compile && cd ..; \
+	done
