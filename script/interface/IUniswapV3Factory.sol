@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: UNLICENSED
-pragma solidity ^0.8.23;
+pragma solidity ^0.8.15;
 
 interface IUniswapV3Factory {
     event FeeAmountEnabled(uint24 indexed fee, int24 indexed tickSpacing);
